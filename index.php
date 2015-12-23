@@ -14,6 +14,7 @@ and open the template in the editor.
 
         <?php
         // put your code here
+        echo "Hello, world! This is my first PHP project!";
         ?>
     </body>
 </html>
