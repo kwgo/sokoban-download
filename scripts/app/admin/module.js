@@ -8,11 +8,11 @@ angular
         '$locationProvider', '$routeProvider', '$translateProvider',
         function ($locationProvider, $routeProvider, $translateProvider) {
             $routeProvider
-                .when("/players", {templateUrl: "views/admin/playerList.html", controller: "listController"})
-                .when("/players/add", {templateUrl: "views/admin/playerDetail.html", controller: "addController"})
-                .when("/players/:index", {templateUrl: "views/admin/playerDetail.html", controller: "editController"})
                 .when("/summary", {templateUrl: "views/admin/summaryList.html", controller: "summaryController"})
-                .when("/activity", {templateUrl: "views/admin/activityList.html", controller: "activeListController"})
+                .when("/players", {templateUrl: "views/admin/playerList.html", controller: "playerListController"})
+                .when("/players/add", {templateUrl: "views/admin/playerDetail.html", controller: "playerAddController"})
+                .when("/players/:index", {templateUrl: "views/admin/playerDetail.html", controller: "playerEditController"})
+                .when("/activity", {templateUrl: "views/admin/activityList.html", controller: "activityController"})
                 .when("/record", {templateUrl: "views/admin/recordList.html", controller: "recordController"})
                 .when("/level", {templateUrl: "views/admin/levelList.html", controller: "levelController"})
                 .when("/pass", {templateUrl: "views/admin/passList.html", controller: "passController"})
@@ -38,13 +38,13 @@ angular
             var data = [];
             var url = "";
             
-            svc.url = function(action) {
+            svc.http = function(action) {
                 url = action;
                 console.log(url);
                 return svc;
             }
             svc.list = function(orderby, limit, success, error) {
-                console.log("action list = "+ url);
+                console.log("http get list = " + url);
                 $http({
                     method: 'GET',
                     url: url,
@@ -57,6 +57,7 @@ angular
                     }
                 })
                 .success(function(response) {
+                    console.log("success ---------");
                     console.log(response);
                     if(response.isSuccess) {
                         for(var i=0; i < response.records.length; i++) {
@@ -67,13 +68,14 @@ angular
                     }
                 })
                 .error(function(response) {
+                    console.log("error ---------");
                     console.log(response);
                     if(error)
                         error(response);
                 });
                 return data;
             };
-            svc.get = function(index) {
+            svc.load = function(index) {
                 return data[index];
             };
             svc.add = function(user) {
@@ -81,6 +83,9 @@ angular
             };
             svc.edit = function(index, user) {
                 data[index] = user;
+            };
+            svc.delete = function(index) {
+                data[index] = null;
             };
             return svc;
         }
