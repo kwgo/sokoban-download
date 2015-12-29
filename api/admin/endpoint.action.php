@@ -23,20 +23,6 @@ class activity extends endpoint
 	$sql .= "( SELECT COUNT(*) FROM forum WHERE active=1 ) AS threadnumber,";
 	$sql .= "( SELECT COUNT(DISTINCT itemnumber) FROM userpass WHERE errorcode=0 AND ipnflag >= 0 ) AS purchasenumber,";
 	$sql .= "( SELECT COUNT(DISTINCT itemnumber) FROM userpass WHERE errorcode<>0 AND ipnflag >= 0 ) AS badpurchasenumber";
-//        
-//     	$sql .= "( SELECT COUNT(*) AS userentered FROM users WHERE usertype = 0 AND entereddate > '$date' ),";
-//	$sql .= "( SELECT COUNT(*) AS userlogin FROM users WHERE usertype = 0 AND logindate > '$date' ),";
-//	$sql .= "( SELECT COUNT(*) AS useractive FROM users WHERE usertype = 0 AND userstatus = 1 AND changeddate <= '$next' ),";
-//	$sql .= "( SELECT COUNT(*) AS usertotal FROM users WHERE usertype = 0 AND entereddate <= '$next' ),";
-//	$sql .= "( SELECT COUNT(*) AS todaylevel FROM userclimb WHERE userdate > '$date' ),";
-//	$sql .= "( SELECT MAX(level)+1 AS userlevel FROM boxman WHERE minuserid IS NOT NULL AND minuserid <> '' ),";
-//	$sql .= "( SELECT COUNT(*) AS totallevel FROM boxman WHERE type > 0 ),";
-//	$sql .= "( SELECT COUNT(*) AS messagetotal FROM usermessage WHERE sentdate <= '$next' ),";
-//	$sql .= "( SELECT COUNT(*) AS messagenumber FROM usermessage WHERE sentdate > '$date' ),";
-//	$sql .= "( SELECT COUNT(*) AS threadnumber FROM forum WHERE active=1 ),";
-//	$sql .= "( SELECT COUNT(DISTINCT itemnumber) AS purchasenumber FROM userpass WHERE errorcode=0 AND ipnflag >= 0 ),";
-//	$sql .= "( SELECT COUNT(DISTINCT itemnumber) AS badpurchasenumber FROM userpass WHERE errorcode<>0 AND ipnflag >= 0 )";
-//        
         parent::_list($sql);
     }
     public function _playerList() {
