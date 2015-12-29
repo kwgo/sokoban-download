@@ -1,0 +1,61 @@
+<div class="row">
+    <div class="col-xs-10">
+<div class="form-group">
+    <input type="text" class="form-control" id="searcher" placeholder="Search ..." data-ng-model="search"/>
+    <!--span>{{search}}</span-->
+</div>
+    </div>
+    <div class="col-xs-1">
+        <select name="orderby" id="orderby" class="form-control" data-ng-model="orderby" data-ng-change="listPlayers()" >
+								<option value="ORDER BY id ASC">User ID ASC</option>
+								<option value="ORDER BY id DESC">User ID DESC</option>
+								<option value="ORDER BY usermaxlevel ASC">Level ASC</option>
+								<option value="ORDER BY usermaxlevel DESC">Level DESC</option>
+								<option value="ORDER BY logindate ASC">Login ASC</option>
+								<option value="ORDER BY logindate DESC">Login DESC</option>
+								<option value="ORDER BY userstatus ASC">Status ASC</option>
+								<option value="ORDER BY userstatus DESC">Status DESC</option>
+        </select>
+
+
+    </div>
+    <div class="col-xs-1">
+        <select name="limit" id="limit" class="form-control" data-ng-model="limit" data-ng-change="listPlayers()" >
+								<option value="">All</option>
+								<option value="LIMIT 50">50</option>
+								<option value="LIMIT 100">100</option>
+								<option value="LIMIT 200">200</option>
+	</select>
+    </div>
+</div>
+
+<table class="table table-striped table-hover">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>CC</th>
+        <th>Email</th>
+        <th>Level</th>
+        <th>Entered</th>
+        <th>Changed</th>
+        <th>Login</th>
+        <th>Status</th>
+    </tr>
+    <tr data-ng-repeat="item in data | filter:search" data-ng-click="editPlayer($index)">
+        <td>{{item.id}}</td>
+        <td>{{item.username}}</td>
+        <td>{{item.usercountry}}</td>
+        <!--td>{{item.$usertype}}</td-->
+        <td>{{item.useremail}}</td>
+        <td>{{item.userlevel}}</td>
+        <td>{{item.entereddate}}</td>
+        <td>{{item.changeddate}}</td>
+        <td>{{item.logindate}}</td>
+        <!--td>{{item.userfrozen}}</td-->
+        <td>{{item.userstatus}}</td>
+    </tr>
+</table>
+
+<div class="form-group">
+    <button class="btn btn-primary" data-ng-click="addPlayer()">Add Player</button>
+</div>
