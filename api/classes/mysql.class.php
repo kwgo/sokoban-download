@@ -1,9 +1,9 @@
 <?php
 class db {
-    private $user = "miniinfo" ;
-    private $password = "pass4MINI!";
-    private $server = "miniinfo.db.4163763.hostedresource.com";
-    private $dbase = "miniinfo";
+    private $user = "kwgoinfo" ;
+    private $password = "pass4KWGO!";
+    private $server = "kwgoinfo.db.4163763.hostedresource.com";
+    private $dbase = "kwgoinfo";
 
     private $db;
 
@@ -48,4 +48,3 @@ class db {
         return update($sql);
     }
 }
-

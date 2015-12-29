@@ -1,5 +1,4 @@
 <?php
-
 class rest {
 		
    public $_allow = array();
@@ -142,4 +141,3 @@ class rest {
 
    
 }	
-?>
