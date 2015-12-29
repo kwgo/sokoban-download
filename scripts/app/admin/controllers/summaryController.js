@@ -60,6 +60,7 @@ angular
     .factory('dataService', ['$http', '$q', function ($http, $q) {
         var url = '/boxman/api/admin/summary/list';
         var defferer = $q.defer();
+        console.log(url);
 //      $http.jsonp(url).success(function (data) {
 //          defferer.resolve(data);
 //      });
@@ -73,6 +74,8 @@ angular
             }
         })
         .success(function(data) {
+            console.log("summary  scuess");
+
             defferer.resolve(data);
         })
         .error(function(err) {
@@ -122,5 +125,3 @@ angular
             $scope.listSummary();
         }
     ]);
-
-
