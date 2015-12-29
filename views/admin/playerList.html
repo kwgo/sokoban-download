@@ -6,7 +6,7 @@
 </div>
     </div>
     <div class="col-xs-1">
-        <select name="orderby" id="orderby" class="form-control" data-ng-model="orderby" data-ng-change="listPlayers()" >
+        <select name="orderby" id="orderby" class="form-control" data-ng-model="orderby" data-ng-change="list()" >
 								<option value="ORDER BY id ASC">User ID ASC</option>
 								<option value="ORDER BY id DESC">User ID DESC</option>
 								<option value="ORDER BY usermaxlevel ASC">Level ASC</option>
@@ -20,7 +20,7 @@
 
     </div>
     <div class="col-xs-1">
-        <select name="limit" id="limit" class="form-control" data-ng-model="limit" data-ng-change="listPlayers()" >
+        <select name="limit" id="limit" class="form-control" data-ng-model="limit" data-ng-change="list()" >
 								<option value="">All</option>
 								<option value="LIMIT 50">50</option>
 								<option value="LIMIT 100">100</option>
@@ -41,7 +41,7 @@
         <th>Login</th>
         <th>Status</th>
     </tr>
-    <tr data-ng-repeat="item in data | filter:search" data-ng-click="editPlayer($index)">
+    <tr data-ng-repeat="item in data | filter:search" data-ng-click="edit($index)">
         <td>{{item.id}}</td>
         <td>{{item.username}}</td>
         <td>{{item.usercountry}}</td>
@@ -57,5 +57,5 @@
 </table>
 
 <div class="form-group">
-    <button class="btn btn-primary" data-ng-click="addPlayer()">Add Player</button>
+    <button class="btn btn-primary" data-ng-click="add()">Add Player</button>
 </div>
