@@ -10,7 +10,7 @@ class activity extends endpoint
     public function _summaryList() {
         $date = $this->_request['date'];
         $next = $this->_request['next'];
-        $sql = " SELECT ";
+        $sql  = " SELECT ";
       	$sql .= "( SELECT COUNT(*) FROM users WHERE usertype = 0 AND entereddate > '$date' ) AS userentered,";
 	$sql .= "( SELECT COUNT(*) FROM users WHERE usertype = 0 AND logindate > '$date' ) AS userlogin,";
 	$sql .= "( SELECT COUNT(*) FROM users WHERE usertype = 0 AND userstatus = 1 AND changeddate <= '$next' ) AS useractive,";
@@ -26,7 +26,7 @@ class activity extends endpoint
         parent::_list($sql);
     }
     public function _playerList() {
-        $sql =  " SELECT * FROM users ";
+        $sql  =  " SELECT * FROM users ";
         $sql .= " WHERE usertype = 0 ";
         parent::_list($sql);
     }
