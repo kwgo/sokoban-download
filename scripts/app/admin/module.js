@@ -7,18 +7,20 @@ angular
     [
         '$locationProvider', '$routeProvider', '$translateProvider',
         function ($locationProvider, $routeProvider, $translateProvider) {
+            var viewPath = "scripts/app/admin/views/";
             $routeProvider
-                .when("/summary", {templateUrl: "views/admin/summaryList.html", controller: "summaryController"})
-                .when("/players", {templateUrl: "views/admin/playerList.html", controller: "playerListController"})
-                .when("/players/add", {templateUrl: "views/admin/playerDetail.html", controller: "playerAddController"})
-                .when("/players/:index", {templateUrl: "views/admin/playerDetail.html", controller: "playerEditController"})
-                .when("/activity", {templateUrl: "views/admin/activityList.html", controller: "activityController"})
-                .when("/record", {templateUrl: "views/admin/recordList.html", controller: "recordController"})
-                .when("/level", {templateUrl: "views/admin/levelList.html", controller: "levelController"})
-                .when("/pass", {templateUrl: "views/admin/passList.html", controller: "passController"})
-                .when("/message", {templateUrl: "views/admin/messageList.html", controller: "messageController"})
-                .when("/thread", {templateUrl: "views/admin/threadList.html", controller: "threadController"})
-                .otherwise({redirectTo: "/summary"}
+                .when("/login", {templateUrl: viewPath + "login.html", controller: "loginController"})
+                .when("/summary", {templateUrl: viewPath + "summaryList.html", controller: "summaryController"})
+                .when("/players", {templateUrl: viewPath + "playerList.html", controller: "playerListController"})
+                .when("/players/add", {templateUrl: viewPath + "playerDetail.html", controller: "playerAddController"})
+                .when("/players/:index", {templateUrl: viewPath + "playerDetail.html", controller: "playerEditController"})
+                .when("/activity", {templateUrl: viewPath + "activityList.html", controller: "activityController"})
+                .when("/record", {templateUrl: viewPath + "recordList.html", controller: "recordController"})
+                .when("/level", {templateUrl: viewPath + "levelList.html", controller: "levelController"})
+                .when("/pass", {templateUrl: viewPath + "passList.html", controller: "passController"})
+                .when("/message", {templateUrl: viewPath + "messageList.html", controller: "messageController"})
+                .when("/thread", {templateUrl: viewPath + "threadList.html", controller: "threadController"})
+                .otherwise({redirectTo: "/login"}
             );
 
 //            $locationProvider.html5Mode(true);
@@ -92,7 +94,7 @@ angular
     ]);
 
 
-//$.addScript('scripts/app/admin/controllers/userController.js');
+$.addScript('scripts/app/admin/controllers/loginController.js');
 $.addScript('scripts/app/admin/controllers/summaryController.js');
 $.addScript('scripts/app/admin/controllers/playerController.js');
 $.addScript('scripts/app/admin/controllers/activityController.js');
