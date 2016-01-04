@@ -322,3 +322,8 @@ function md5hash(input, output_html, output_utf, skip_empty)
 
 	return true;
 }
+function md5(value)
+{
+//  md5string = hex_md5(trim(input.value));
+    return hex_md5(str_to_ent(trim(value)));
+}
