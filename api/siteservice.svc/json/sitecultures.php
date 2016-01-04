@@ -72,48 +72,36 @@
 	
     $CultureHolder = new CultureHolder();
     $CultureHolder->Cultures = array();
-
-    $Neutral = new Neutral();
-    $Neutral->Id = 1;
-    $Neutral->Code = "fr";
-    $Neutral->Name = "Français";
-
-    $Culture = new Culture();
-    $Culture->Id = 3;
-    $Culture->Code = "fr-CA";
-    $Culture->Name = "Français (Canada)";
-    $Culture->Neutral = $Neutral;
-    $Culture->NeutralId = 1;
-    
-    $Cultures = new Cultures();
-    $Cultures->Id = 0;
-    $Cultures->SiteId =  1;
-    $Cultures->IsDefault = true;
-    $Cultures->CultureId = 3;
-    $Cultures->Culture = $Culture;
-
-    $CultureHolder->Cultures[] = $Cultures;
-
-    $Neutral = new Neutral();
-    $Neutral->Id = 4;
-    $Neutral->Code = "en";
-    $Neutral->Name = "English";
-
-    $Culture = new Culture();
-    $Culture->Id = 6;
-    $Culture->Code = "en-CA";
-    $Culture->Name = "English (Canada)";
-    $Culture->Neutral = $Neutral;
-    $Culture->NeutralId = 4;
    
-    $Cultures = new Cultures();
-    $Cultures->Id = 0;
-    $Cultures->SiteId =  1;
-    $Cultures->IsDefault = false;
-    $Cultures->CultureId = 6;
-    $Cultures->Culture = $Culture;
+    $CultureHolder->Cultures[0] = new Cultures();
+    $CultureHolder->Cultures[0]->Id = 0;
+    $CultureHolder->Cultures[0]->SiteId =  1;
+    $CultureHolder->Cultures[0]->IsDefault = true;
+    $CultureHolder->Cultures[0]->CultureId = 3;
+    $CultureHolder->Cultures[0]->Culture = new Culture();
+    $CultureHolder->Cultures[0]->Culture->Id = 3;
+    $CultureHolder->Cultures[0]->Culture->Code = "fr-CA";
+    $CultureHolder->Cultures[0]->Culture->Name = "Français (Canada)";
+    $CultureHolder->Cultures[0]->Neutral = new Culture();
+    $CultureHolder->Cultures[0]->Neutral->Id = 1;
+    $CultureHolder->Cultures[0]->Neutral->Code = "fr";
+    $CultureHolder->Cultures[0]->Neutral->Name = "Français";
+    $CultureHolder->Cultures[0]->NeutralId = 1;
 
-    $CultureHolder->Cultures[] = $Cultures;
+    $CultureHolder->Cultures[1] = new Cultures();
+    $CultureHolder->Cultures[1]->Id = 0;
+    $CultureHolder->Cultures[1]->SiteId =  1;
+    $CultureHolder->Cultures[1]->IsDefault = false;
+    $CultureHolder->Cultures[1]->CultureId = 6;
+    $CultureHolder->Cultures[1]->Culture = new Culture();
+    $CultureHolder->Cultures[1]->Culture->Id = 6;
+    $CultureHolder->Cultures[1]->Culture->Code = "en-CA";
+    $CultureHolder->Cultures[1]->Culture->Name = "English (Canada)";
+    $CultureHolder->Cultures[1]->Culture->Neutral = new Neutral();
+    $CultureHolder->Cultures[1]->Culture->Neutral->Id = 4;
+    $CultureHolder->Cultures[1]->Culture->Neutral->Code = "en";
+    $CultureHolder->Cultures[1]->Culture->Neutral->Name = "English";
+    $CultureHolder->Cultures[1]->Culture->NeutralId = 4;
 
    echo json_encode($CultureHolder);
    

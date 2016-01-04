@@ -1,7 +1,7 @@
 <?php
 require_once("endpoint.class.php");
-
-class activity extends endpoint
+ 
+class action extends endpoint
 {
     public function __construct(){
         parent::__construct();		// Init parent contructor
@@ -64,8 +64,17 @@ class activity extends endpoint
 	$sql .= " WHERE 1=1 ";
         parent::_list($sql);
     }
+    public function authorization() {
+        $username = $_SERVER['PHP_AUTH_USER'];
+        $passwordmd5 = $_SERVER['PHP_AUTH_PW'];
+        $sql = " SELECT * FROM users WHERE username = '$username' AND passwordmd5 = '$passwordmd5' ";
+        if(count($this->db->select($sql)) != 1) {
+            $this->response('', 404);
+        }
+    }
 }
-$api = new activity;
+$api = new action;
+$api->authorization();
 $api->processApi(api);
 
 ?>

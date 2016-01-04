@@ -19,13 +19,15 @@ class rest {
       return $_SERVER['HTTP_REFERER'];
    }
 		
-   public function response($data,$status){
-      $this->_code = ($status)?$status:200;
-      $this->set_headers();
+   public function send_response($data,$status_code, $status_message){
+      $this->set_headers($status_code, $status_message, $this->_content_type);
       echo $data;
       exit;
    }
-		
+   public function response($data,$status){
+      $this->_code = ($status)?$status:200;
+      $this->send_response($data, $this->_code, $this->get_status_message());
+   }		
    private function get_status_message(){
       $status = array(
 	100 => 'Continue',  
@@ -82,8 +84,8 @@ class rest {
 
       switch($this->get_request_method()){
 	 case "POST":
-	    //	$this->_request = $this->cleanInputs($_POST);
-	    //	break;
+//	    $this->_request = $this->cleanInputs($_POST);
+//	    break;
             $this->_request = file_get_contents("php://input") ;
 	    $this->_request = $this->cleanInputs($this->_request);
 	    break;
@@ -95,7 +97,7 @@ class rest {
             break;
 	 case "PUT":
             $this->_request = file_get_contents("php://input") ;
-            $this->_request = $this->cleanInputs($this->_request);
+            //$this->_request = $this->cleanInputs($this->_request);
             break;
 	 default:
 	    $this->response('',406);
@@ -117,11 +119,13 @@ class rest {
 	 $clean_input = trim($data);
       }
       return $clean_input;
-   }		
-		
-   private function set_headers(){
-      header("HTTP/1.1 ".$this->_code." ".$this->get_status_message());
-      header("Content-Type:".$this->_content_type);
+    }		
+
+    private function set_headers($status_code, $status_message, $content_type){
+//      header("HTTP/1.1 ".$this->_code." ".$this->get_status_message());
+ //     header("Content-Type:".$this->_content_type);
+      header("HTTP/1.1 ".$status_code." ".$status_message);
+      header("Content-Type:".$content_type);
    }
 /*   
     public function processApi(){
@@ -134,9 +138,9 @@ class rest {
     }
 */
     public function json($data){
-            if(is_array($data)){
-                    return json_encode($data);
-            }
+        if(is_array($data)){
+            return json_encode($data);
+        }
     }
 
    

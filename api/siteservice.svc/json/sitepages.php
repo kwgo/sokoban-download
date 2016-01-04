@@ -8,33 +8,29 @@
   ]
 } */
 
-    class PageHolders {
+    class PageHolder {
         public $Pages;
     }
-    class Pages {
-        public $Id;
-        public $SiteId;
-        public $IsDefault;
-        public $PageId;
-        public $Page;
-    }
     class Page {
-        public $Id;
-        public $Code;
-        public $Name;
-        public $Neutral; 
-        public $NeutralId;
-    }
-    class Neutral {
-        public $Id;
-        public $Code;
-        public $Name;
-        public $Neutral;
-        public $NeutralId;
+        public $Culture;
+        public $Controller;
+        public $PageId;
+        public $ParentId;
+        public $TemplateUrl;
+        public $IsDefault;
+        public $IsFallback;
+        public $IsLogin;
+        public $UseSiteRoot;
+        public $Key;
+        public $Authenticate;
+        public $Title;
+        public $Url;
+        public $RequireAllPermissions;
+        public $AccessRoles;
     }
 	
-    $PageHolders = new PageHolders();
-    $PageHolders->Pages = array();
+    $PageHolder = new PageHolder();
+    $PageHolder->Pages = array();
 
     $Page = new Page();
     $Page->Culture = "fr-CA";
@@ -52,7 +48,7 @@
     $Page->Url = "fr-CA/introuvable";
     $Page->RequireAllPermissions = false;
     $Page->AccessRoles = array();
-    $Pages->Page = $Page;
+    $PageHolder->Pages[] = $Page;
 
     $Page = new Page();
     $Page->Culture = "en-CA";
@@ -70,7 +66,7 @@
     $Page->Url = "en-CA/notfound";
     $Page->RequireAllPermissions = false;
     $Page->AccessRoles = array();
-    $Pages->Page = $Page;
+    $PageHolder->Pages[] = $Page;
 
     $Page = new Page();
     $Page->Culture = "fr-CA";
@@ -88,7 +84,7 @@
     $Page->Url = "fr-CA/rx";
     $Page->RequireAllPermissions = true;
     $Page->AccessRoles = array();
-    $Pages->Page = $Page;
+    $PageHolder->Pages[] = $Page;
 
     $Page = new Page();
     $Page->Culture = "en-CA";
@@ -106,7 +102,7 @@
     $Page->Url = "en-CA/rx";
     $Page->RequireAllPermissions = true;
     $Page->AccessRoles = array();
-    $Pages->Page = $Page;
+    $PageHolder->Pages[] = $Page;
 
     $Page = new Page();
     $Page->Culture = "fr-CA";
@@ -125,7 +121,7 @@
     $Page->RequireAllPermissions = true;
     $Page->AccessRoles = array();
 
-    $Pages->Page = $Page;
+    $PageHolder->Pages[] = $Page;
     $Page = new Page();
     $Page->Culture = "en-CA";
     $Page->Controller = "rxController";
@@ -142,7 +138,7 @@
     $Page->Url = "en-CA/rx-inactive";
     $Page->RequireAllPermissions = true;
     $Page->AccessRoles = array();
-    $Pages->Page = $Page;
+    $PageHolder->Pages[] = $Page;
 
     $Page = new Page();
     $Page->Culture = "fr-CA";
@@ -160,7 +156,7 @@
     $Page->Url = "fr-CA/patients";
     $Page->RequireAllPermissions = false;
     $Page->AccessRoles = array();
-    $Pages->Page = $Page;
+    $PageHolder->Pages[] = $Page;
 
     $Page = new Page();
     $Page->Culture = "en-CA";
@@ -178,7 +174,7 @@
     $Page->Url = "en-CA/patients";
     $Page->RequireAllPermissions = false;
     $Page->AccessRoles = array();
-    $Pages->Page = $Page;
+    $PageHolder->Pages[] = $Page;
 
     $Page = new Page();
     $Page->Culture = "fr-CA";
@@ -196,7 +192,7 @@
     $Page->Url = "fr-CA/rx/gestion";
     $Page->RequireAllPermissions = false;
     $Page->AccessRoles = array();
-    $Pages->Page = $Page;
+    $PageHolder->Pages[] = $Page;
 
     $Page = new Page();
     $Page->Culture = "en-CA";
@@ -214,7 +210,7 @@
     $Page->Url = "en-CA/rx/manage";
     $Page->RequireAllPermissions = false;
     $Page->AccessRoles = array();
-    $Pages->Page = $Page;
+    $PageHolder->Pages[] = $Page;
 
     $Page = new Page();
     $Page->Culture = "fr-CA";
@@ -232,7 +228,7 @@
     $Page->Url = "fr-CA/rx/rx-adhoc";
     $Page->RequireAllPermissions = false;
     $Page->AccessRoles = array();
-    $Pages->Page = $Page;
+    $PageHolder->Pages[] = $Page;
 
     $Page = new Page();
     $Page->Culture = "en-CA";
@@ -250,7 +246,7 @@
     $Page->Url = "en-CA/rx/rx-adhoc";
     $Page->RequireAllPermissions = false;
     $Page->AccessRoles = array();
-    $Pages->Page = $Page;
+    $PageHolder->Pages[] = $Page;
 
     $Page = new Page();
     $Page->Culture = "fr-CA";
@@ -268,7 +264,7 @@
     $Page->Url = "fr-CA/rx/valider";
     $Page->RequireAllPermissions = false;
     $Page->AccessRoles = array();
-    $Pages->Page = $Page;
+    $PageHolder->Pages[] = $Page;
 
     $Page = new Page();
     $Page->Culture = "en-CA";
@@ -286,7 +282,7 @@
     $Page->Url = "en-CA/rx/validate";
     $Page->RequireAllPermissions = false;
     $Page->AccessRoles = array();
-    $Pages->Page = $Page;
+    $PageHolder->Pages[] = $Page;
 
     $Page = new Page();
     $Page->Culture = "fr-CA";
@@ -304,7 +300,7 @@
     $Page->Url = "fr-CA/rx/preparer";
     $Page->RequireAllPermissions = false;
     $Page->AccessRoles = array();
-    $Pages->Page = $Page;
+    $PageHolder->Pages[] = $Page;
 
     $Page = new Page();
     $Page->Culture = "en-CA";
@@ -322,7 +318,7 @@
     $Page->Url = "en-CA/rx/prepare";
     $Page->RequireAllPermissions = false;
     $Page->AccessRoles = array();
-    $Pages->Page = $Page;
+    $PageHolder->Pages[] = $Page;
 
     $Page = new Page();
     $Page->Culture = "fr-CA";
@@ -340,7 +336,7 @@
     $Page->Url = "fr-CA/rx/annuler-preparation";
     $Page->RequireAllPermissions = false;
     $Page->AccessRoles = array();
-    $Pages->Page = $Page;
+    $PageHolder->Pages[] = $Page;
 
     $Page = new Page();
     $Page->Culture = "en-CA";
@@ -358,7 +354,7 @@
     $Page->Url = "en-CA/rx/cancel-preparation";
     $Page->RequireAllPermissions = false;
     $Page->AccessRoles = array();
-    $Pages->Page = $Page;
+    $PageHolder->Pages[] = $Page;
 
     $Page = new Page();
     $Page->Culture = "fr-CA";
@@ -376,7 +372,7 @@
     $Page->Url = "fr-CA/rx/administration";
     $Page->RequireAllPermissions = false;
     $Page->AccessRoles = array();
-    $Pages->Page = $Page;
+    $PageHolder->Pages[] = $Page;
 
     $Page = new Page();
     $Page->Culture = "en-CA";
@@ -394,7 +390,7 @@
     $Page->Url = "en-CA/rx/administration";
     $Page->RequireAllPermissions = false;
     $Page->AccessRoles = array();
-    $Pages->Page = $Page;
+    $PageHolder->Pages[] = $Page;
 
     $Page = new Page();
     $Page->Culture = "fr-CA";
@@ -412,7 +408,7 @@
     $Page->Url = "fr-CA/rx/start-processing";
     $Page->RequireAllPermissions = false;
     $Page->AccessRoles = array();
-    $Pages->Page = $Page;
+    $PageHolder->Pages[] = $Page;
 
     $Page = new Page();
     $Page->Culture = "en-CA";
@@ -430,7 +426,7 @@
     $Page->Url = "en-CA/rx/start-processing";
     $Page->RequireAllPermissions = false;
     $Page->AccessRoles = array();
-    $Pages->Page = $Page;
+    $PageHolder->Pages[] = $Page;
 
     $Page = new Page();
     $Page->Culture = "fr-CA";
@@ -448,7 +444,7 @@
     $Page->Url = "fr-CA/rx/start-processing-adhoc";
     $Page->RequireAllPermissions = false;
     $Page->AccessRoles = array();
-    $Pages->Page = $Page;
+    $PageHolder->Pages[] = $Page;
 
     $Page = new Page();
     $Page->Culture = "en-CA";
@@ -466,7 +462,7 @@
     $Page->Url = "en-CA/rx/start-processing-adhoc";
     $Page->RequireAllPermissions = false;
     $Page->AccessRoles = array();
-    $Pages->Page = $Page;
+    $PageHolder->Pages[] = $Page;
 
     $Page = new Page();
     $Page->Culture = "fr-CA";
@@ -484,7 +480,7 @@
     $Page->Url = "fr-CA/rx/rx-adhoc/administration";
     $Page->RequireAllPermissions = false;
     $Page->AccessRoles = array();
-    $Pages->Page = $Page;
+    $PageHolder->Pages[] = $Page;
 
     $Page = new Page();
     $Page->Culture = "en-CA";
@@ -502,7 +498,7 @@
     $Page->Url = "en-CA/rx/rx-adhoc/administration";
     $Page->RequireAllPermissions = false;
     $Page->AccessRoles = array();
-    $Pages->Page = $Page;
+    $PageHolder->Pages[] = $Page;
 
     $Page = new Page();
     $Page->Culture = "fr-CA";
@@ -520,7 +516,7 @@
     $Page->Url = "fr-CA/tests";
     $Page->RequireAllPermissions = false;
     $Page->AccessRoles = array();
-    $Pages->Page = $Page;
+    $PageHolder->Pages[] = $Page;
 
     $Page = new Page();
     $Page->Culture = "en-CA";
@@ -538,8 +534,7 @@
     $Page->Url = "en-CA/tests";
     $Page->RequireAllPermissions = false;
     $Page->AccessRoles = array();
- 
-    $PageHolders->Pages = $Pages;
+    $PageHolder->Pages[] = $Page;
 
-    echo json_encode($PageHolders);
+    echo json_encode($PageHolder);
    
