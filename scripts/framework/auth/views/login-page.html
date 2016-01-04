@@ -1,0 +1,57 @@
+<div class="page-title">
+    <h1>{{ 'LOGIN_TITLE' | translate }}</h1>
+</div>
+<div class="well well-sm well-detail login-page">
+    <form autocomplete="off" name="form" role="form" novalidate ng-submit="submit()">
+        <!-- fake fields are a workaround for chrome autofill getting the wrong fields -->
+        <input style="display:none" type="text" name="fakeusernameremembered" />
+        <input style="display:none" type="password" name="fakepasswordremembered" />
+        <br />
+        <br />
+        <div bs-row>
+            <div bs-col="xs-offset-4 xs-3">
+
+                <div bs-form="group">
+                    <label for="username" bs-control="label">{{ 'LOGINUSERNAME' | translate }}</label>
+                    <input bs-form="control" type="text" name="username"
+                           ng-model="model.username"
+                           ng-maxlength="20"
+                           ctl-char-limit="20"
+                           required ctl-auto-focus />
+                </div>
+                <div bs-form="group group-sm">
+                    <label for="password" bs-control="label">{{ 'LOGINPASSWORD' | translate }}</label>
+
+                    <input bs-form="control" type="password" name="password"
+                           ng-model="model.password"
+                           ng-maxlength="20"
+                           ctl-char-limit="20"
+                           required autocomplete="off" />
+                </div>
+                <div bs-form="group group-sm" class="domain-container" ng-show="showDomains">
+                    <label bs-control="label">{{ 'LOGINDOMAIN' | translate }}</label><br />
+                    <select bs-form="control"
+                            class="domain-selector"
+                            kendo-drop-down-list
+                            ng-model="model.domain"
+                            k-data-text-field="'name'"
+                            k-data-value-field="'key'"
+                            k-data-source="domains"></select>
+                </div>
+                <div bs-form="group group-sm" ng-show="remember">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="model.remember" />
+                            {{ 'LOGINREMEMBER' | translate }}
+                        </label>
+                    </div>
+                </div>
+                <div bs-form="group group-sm" class="login-buttons-container">
+                    <button type="submit" class="btn btn-primary login-btn">{{ 'LOGINSUBMIT' | translate }}</button>
+                    <button type="reset" ng-click="reset()" class="btn btn-primary">{{ 'LOGINCANCEL' | translate }}</button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>

@@ -1,0 +1,112 @@
+
+<div ng-if="model.isServerSelected">
+    <div kendo-tab-strip="controls.tabs" k-animation="false" k-content-urls="[ null, null]">
+        <ul>
+            <li class="k-state-active">{{ 'SERVER' | translate }}</li>
+            <li>{{ 'BRANCHES' | translate }}</li>
+        </ul>
+        <div>
+            <form name="serverForm" role="form" novalidate bs-form="horizontal">
+                <div bs-form="group">
+                    <label for="txtDescription" bs-col="sm-3" bs-control="label"><span required>&bull;</span> {{ 'DESCRIPTION' | translate }}</label>
+                    <div bs-col="sm-7">
+                        <input id="txtDescription" type="text" ng-model="model.selectedServerInfo.description" bs-form="control" required="required" />
+                    </div>
+                </div>
+                <div bs-form="group">
+                    <label for="txtDomain" bs-col="sm-3" bs-control="label">{{ 'DOMAIN' | translate }}</label>
+                    <div bs-col="sm-7">
+                        <input id="txtDomain" type="text" ng-model="model.selectedServerInfo.domain" bs-form="control" />
+                    </div>
+                </div>
+                <div bs-form="group">
+                    <label for="txtNamingContext" bs-col="sm-3" bs-control="label"><span required>&bull;</span> {{ 'NAMING_CONTEXT' | translate }}</label>
+                    <div bs-col="sm-7">
+                        <input id="txtNamingContext" type="text" ng-model="model.selectedServerInfo.namingContext" bs-form="control" required="required" />
+                    </div>
+                </div>
+                <div bs-form="group">
+                    <label for="txtAddress" bs-col="sm-3" bs-control="label"><span required>&bull;</span> {{ 'ADDRESS' | translate }}</label>
+                    <div bs-col="sm-7">
+                        <input id="txtAddress" type="text" ng-model="model.selectedServerInfo.address" bs-form="control" required="required" />
+                    </div>
+                </div>
+                <div bs-form="group">
+                    <label for="ddlConnectionTypes" bs-col="sm-3" bs-control="label"><span required>&bull;</span> {{ 'CONNECTION_TYPE' | translate }}</label>
+                    <div bs-col="sm-7">
+                        <select id="ddlConnectionTypes" ng-model="model.selectedServerInfo.secureConnectionType" ng-options="connectionType.id as connectionType.text for connectionType in connectionTypes" bs-form="control" required="required"></select>
+                    </div>
+                </div>
+                <div bs-form="group">
+                    <label for="txtPort" bs-col="sm-3" bs-control="label">{{ 'PORT' | translate }}</label>
+                    <div bs-col="sm-7">
+                        <input id="txtPort" type="number" ng-model="model.selectedServerInfo.port" bs-form="control" min="1" max="65535" />
+                    </div>
+                </div>
+                <div bs-form="group">
+                    <label for="txtServiceAccountName" bs-col="sm-3" bs-control="label">{{ 'SVC_ACCT_NAME' | translate }}</label>
+                    <div bs-col="sm-7">
+                        <input id="txtServiceAccountName" type="text" name="serviceAccountName" ng-model="model.selectedServerInfo.serviceAccountName" bs-form="control" />
+                    </div>
+                </div>
+                <div bs-form="group">
+                    <label for="txtServiceAccountPassword" bs-col="sm-3" bs-control="label">{{ 'SVC_ACCT_PWD' | translate }}</label>
+                    <div bs-col="sm-7">
+                        <input id="txtServiceAccountPassword" type="password" name="serviceAccountPwd" ng-model="model.selectedServerInfo.serviceAccountPwd" ng-keydown="clearPassword()" bs-form="control" />
+                    </div>
+                </div>
+                <div bs-form="group">
+                    <label for="chkActive" bs-col="sm-3" bs-control="label">{{ 'ACTIVE' | translate }}</label>
+                    <div bs-col="sm-7">
+                        <input id="chkActive" type="checkbox" ng-model="model.selectedServerInfo.active" />
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div>
+            <form name="connectionForm" role="form" novalidate bs-form="horizontal" ng-submit="connect()" ng-if="!model.selectedServer.connected">
+                <h3></h3>
+                <div bs-form="group">
+                    <label for="txtAccountName" bs-col="sm-3" bs-control="label"><span required>&bull;</span> {{ 'ACCOUNT_NAME' | translate }}</label>
+                    <div bs-col="sm-7">
+                        <input id="txtAccountName" type="text" ng-model="model.selectedServer.credential.userName" bs-form="control" required="required" />
+                    </div>
+                </div>
+                <div bs-form="group">
+                    <label for="txtAccountPassword" bs-col="sm-3" bs-control="label"><span required>&bull;</span> {{ 'ACCOUNT_PWD' | translate }}</label>
+                    <div bs-col="sm-7">
+                        <input id="txtAccountPassword" type="password" ng-model="model.selectedServer.credential.password" bs-form="control" required="required" />
+                    </div>
+                </div>
+                <div bs-form="group">
+                    <div bs-col="sm-offset-3 sm-7">
+                        <button bs-btn="primary" type="submit">{{ 'CONNECTION' | translate }}</button>
+                        <button bs-btn="default" type="reset">{{ 'CANCEL' | translate }}</button>
+                    </div>
+                </div>
+            </form>
+
+            <div ng-if="model.selectedServer.connected">
+                <div bs-row>
+                    <div bs-col="sm-12">
+                        <div bs-pull="right">connected as <b>{{ model.selectedServer.credential.userName }}</b> - <a ng-click="disconnect()" href="">change</a></div>
+                    </div>
+                </div>
+                <div bs-row>
+                    <div bs-col="sm-12">
+                        <div kendo-tree-view="controls.branches"
+                             k-on-expand="onExpand(kendoEvent)"
+                             k-on-check="onCheck(kendoEvent)"
+                             k-checkboxes="{ checkChildren: true }"
+                             k-load-on-demand="true"
+                             k-data-text-field="'name'"
+                             k-on-data-bound="onDataBound(kendoEvent)"
+                             k-data-source="dsDetails">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

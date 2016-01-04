@@ -2,11 +2,12 @@
 ﻿'use strict';
 
 angular
-    .module('boxman.admin', ['ngRoute','pascalprecht.translate'])
+    .module('boxman.admin', ['ngRoute','angular-jwt', 'angular-jwt.interceptor', 'pascalprecht.translate', 'ui.router'])
     .config(
     [
-        '$locationProvider', '$routeProvider', '$translateProvider',
+        '$locationProvider', '$routeProvider', '$translateProvider', 
         function ($locationProvider, $routeProvider, $translateProvider) {
+            console.log(".config...");
             var viewPath = "scripts/app/admin/views/";
             $routeProvider
                 .when("/login", {templateUrl: viewPath + "login.html", controller: "loginController"})
@@ -22,61 +23,96 @@ angular
                 .when("/thread", {templateUrl: viewPath + "threadList.html", controller: "threadController"})
                 .otherwise({redirectTo: "/login"}
             );
-
-//            $locationProvider.html5Mode(true);
-//            $routeProvider.when(locationService.current.path + ":culture/:page*", { reloadOnSearch: true, caseInsensitiveMatch: true});
-//            $routeProvider.when(locationService.current.path + ":culture", { reloadOnSearch: false, caseInsensitiveMatch: true});
-//            $routeProvider.when(locationService.current.path, { reloadOnSearch: false, caseInsensitiveMatch: true });
-//            if (locationService.root != "") {
-//                $routeProvider.otherwise(locationService.current.path, { reloadOnSearch: false, caseInsensitiveMatch: true });
-//            }
         }
     ])
     .factory('actionService',
     [
         '$rootScope', '$http',
         function($rootScope, $http) {
+
+            console.log(".factory...");
             var svc = {};
-            var data = [];
-            var url = "";
+            //var data = [];
+            //var url = "";
             
-            svc.http = function(action) {
-                url = action;
-                console.log(url);
-                return svc;
+            var user;
+            svc.setUser = function(loginedUser){
+                user = loginedUser;
             }
-            svc.list = function(orderby, limit, success, error) {
-                console.log("http get list = " + url);
+            svc.isLoggedIn = function(){
+                return(user)? user : false;
+            }
+
+            
+            svc.http = {};
+            svc.http.get = function(url, params, success, error) {
+                console.log("get:" +  url + " - params = " + params);
+               console.log(user.authorization);
+                
                 $http({
                     method: 'GET',
                     url: url,
-                    params: {
-                        orderby: orderby,
-                        limit: limit
-                    },
+                    params: params,
                     headers: {
-                        'Accept': 'application/json; odata=verbose' 
+//                        'Accept': 'application/json; odata=verbose' 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json; odata=verbose',
+                        'Authorization': 'Basic ' + user.authorization
                     }
                 })
-                .success(function(response) {
-                    console.log("success ---------");
-                    console.log(response);
-                    if(response.isSuccess) {
-                        for(var i=0; i < response.records.length; i++) {
-                            data[i] = response.records[i];
-                        }
+                .then(
+                    function(response) {
+                        console.log(response);
                         if(success)
-                            success(data);
+                            success(response);
+                    },
+                    function(response) {
+                        console.log(response);
+                        if(error)
+                            error(response);
                     }
+                );
+            }
+            svc.http.post = function(url, data, success, error) {
+                console.log("post:" +  url + " == " + data);
+                $http({
+                    url: url,
+                    method: "POST",
+                    data: data
                 })
-                .error(function(response) {
-                    console.log("error ---------");
-                    console.log(response);
-                    if(error)
-                        error(response);
-                });
-                return data;
-            };
+                .then(
+                    function(response) {
+                        console.log('-- success --');
+                        console.log(response);
+                        if(success)
+                            success(response);
+                    },
+                    function(response) {
+                        console.log('-- error --');
+                        console.log(response);
+                        if(error)
+                            error(response);
+                    }
+                );
+            }
+
+            svc.list = function(url, params, success, error) {
+                svc.http.get(
+                    url,
+                    params,
+                    function(response) {
+                        var data = [];
+                        if(response.data.isSuccess) {
+                            for(var i=0; i < response.data.records.length; i++) {
+                                data[i] = response.data.records[i];
+                            }
+                            if(success)
+                                success(data);
+                        }
+                    },
+                    error
+                );
+            }
             svc.load = function(index) {
                 return data[index];
             };
@@ -91,8 +127,25 @@ angular
             };
             return svc;
         }
+    ])
+    .run([
+        '$rootScope', '$location', 'actionService',
+        function ($rootScope, $location, actionService) {
+            console.log(".run...");
+            $rootScope.$on('$routeChangeStart', function (event) {
+                console.log('$routeChangeStart');
+                if (!actionService.isLoggedIn()) {
+                    console.log('login DENY');
+                    event.preventDefault();
+                    $location.path('/login');
+                }
+                else {
+                    console.log('login ALLOW');
+                    //$location.path('/summary');
+                }
+            });
+        }
     ]);
-
 
 $.addScript('scripts/app/admin/controllers/loginController.js');
 $.addScript('scripts/app/admin/controllers/summaryController.js');

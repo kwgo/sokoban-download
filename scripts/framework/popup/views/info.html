@@ -1,0 +1,9 @@
+<div bs-popup="header">
+    <h1 bs-popup="title"><i bs-glyphicon="info-sign"></i>&nbsp;<small>{{opts.title}}</small></h1>
+</div>
+<div bs-popup="body">
+    {{opts.content}}
+</div>
+<div bs-popup="footer">
+    <button id="closeBtn" bs-btn="primary" ng-click="onClose()">{{opts.closeBtnText}}</button>
+</div>

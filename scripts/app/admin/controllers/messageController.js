@@ -8,8 +8,9 @@ angular
             //url: "http://www.jchip.com/boxman/api/admin/level/levelList",
             var url = '/boxman/api/admin/message/messageList';
             $scope.list = function() {
-                actionService.http(url).list(
-                    $scope.orderby, $scope.limit,
+                actionService.list(
+                    url,
+                    { orderby: $scope.orderby, limit: $scope.limit },
                     function(data) {
                         $scope.data = data;
                     },

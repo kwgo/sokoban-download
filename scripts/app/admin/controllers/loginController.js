@@ -5,31 +5,78 @@ angular
     [
         '$scope', '$http', '$location', '$routeParams', 'actionService',
         function ($scope, $http, $location, $routeParams, actionService) {
-            $scope.isLogin = true;
-            $scope.remember = false;
-
-            $scope.user = {};
+            $scope.user = {
+                username: "",
+                password: "",
+                passwordmd5: ""
+            };
+            $scope.model = {
+                login: true,
+                warning: null,
+                error: null
+            };
             
-            $scope.login = function() {
-                var url = "http://localhost:8081/session/create";
-/*                
-                $http({
-                    url: url,
-                    method: "POST",
-                    data: $scope.user
+/*
+            $q.all({
+                    resources: $scope.cultureManager.resources.load(authService.authentication.i18n),
+                    domains: authService.getDomains()
                 })
-                .then(
+                .then(function(response) {
+                    errorTitle = $scope.cultureManager.resources.translate('LOGINERRORTITLE');
+                    errorMessage = $scope.cultureManager.resources.translate('LOGINERRORMESSAGE');
+
+                    $scope.domains = response.domains;
+                    $scope.showDomains = $scope.domains.length > 1;
+                });
+  */          
+            var orginalUser = angular.copy($scope.user);
+            
+            $scope.submit = function () {
+                var url = '/boxman/api/admin/auth/login';
+                
+                console.log('submit..');
+                console.log($scope.user.username);
+              
+
+                console.log($scope.user.password);
+                $scope.user.passwordmd5 = md5($scope.user.password);
+                $scope.user.password = '';
+                console.log($scope.user.passwordmd5);
+
+                actionService.http.post(
+                    url,
+                    $scope.user,
                     function(response) {
-//                      store.set("jwt", response.data.id_token);
-//                      $state.go("home");
-                        $location.path("/summary");
+                        if(response.data.isSuccess) {
+                            console.log(response.data.user);
+                            actionService.setUser(response.data.user);
+                            $location.path("/summary");
+                        }
                     },
                     function(error) {
-                        console.log(error.data);
+                        $scope.model.warning = error.statusText;
                     }
                 );
-*/
-                        $location.path("/summary");
+            };
+                /*
+                if (!$scope.form.$invalid) {
+                    notificationService.hide();
+                    authService
+                        .login($scope.model)
+                        .then(function (user) {
+                            authService.model.redirectToCulture = true;
+                            $route.reload();
+                            console.log(user);
+                        }, function(user) {
+                            notificationService.error({
+                                title: errorTitle,
+                                message: errorMessage
+                            });
+                        });  
+                }*/
+            $scope.reset = function () {
+                $scope.user = angular.copy(orginalUser);
+                $scope.model.warning = null;
             };
         }
     ]);

@@ -24,11 +24,13 @@
         <br />
         <div class="row">
             <div class="col-xs-offset-4 col-xs-3">
-
+                <label class="label label-warning control-label" data-ng-show="model.warning">
+                    {{model.warning}}
+                </label>
                 <div class="form-group">
                     <label for="username" class="control-label">User name</label>
                     <input class="form-control" type="text" name="username"
-                           ng-model="model.username"
+                           ng-model="user.username"
                            ng-maxlength="20"
                            ctl-char-limit="20"
                            required ctl-auto-focus />
@@ -37,28 +39,10 @@
                     <label for="password" class="control-label">Password</label>
 
                     <input class="form-control" type="password" name="password"
-                           ng-model="model.password"
+                           ng-model="user.password"
                            ng-maxlength="20"
                            ctl-char-limit="20"
                            required autocomplete="off" />
-                </div>
-                <div class="form-group form-group-sm domain-container" data-ng-show="remember">
-                    <label class="control-label">Login</label><br />
-                    <select bs-form="control"
-                            class="domain-selector"
-                            kendo-drop-down-list
-                            ng-model="model.domain"
-                            k-data-text-field="'name'"
-                            k-data-value-field="'key'"
-                            k-data-source="domains"></select>
-                </div>
-                <div class="form-group form-group-sm" data-ng-show="remember">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" data-ng-model="model.remember" />
-                            {{ 'LOGINREMEMBER' | translate }}
-                        </label>
-                    </div>
                 </div>
                 <div class="form-group form-group-sm login-buttons-container">
                     <button type="submit" class="btn btn-primary login-btn">Submit</button>

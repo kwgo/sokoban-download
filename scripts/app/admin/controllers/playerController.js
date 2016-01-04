@@ -14,8 +14,9 @@ angular
                 $scope.limit = "LIMIT 50";
 
             $scope.list = function() {
-                actionService.http(url).list(
-                    $scope.orderby, $scope.limit,
+                actionService.list(
+                    url,
+                    { orderby: $scope.orderby, limit: $scope.limit },
                     function(data) {
                         $scope.data = data;
                     },

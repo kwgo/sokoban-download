@@ -1,0 +1,9 @@
+<div>
+    <li class="dropdown" ng-hide="model.authenticated">
+        <a href="" ng-click="login()">{{ 'LOGIN_LINK' | translate }}</a>
+    </li>
+    <li ng-show="model.authenticated" class="navbar-brand-username">
+        <a>{{ 'LOGIN_WELCOME' | translate }} <b>{{model.identity.user.firstName + " " + model.identity.user.lastName}}{{model.identity.user.titleCode != "" ? ", " + model.identity.user.titleCode : ""}}</b></a>
+    </li>
+    <li ng-show="model.authenticated"><a href="" ng-click="logout()">{{ 'LOGOUT_LINK' | translate }}</a></li>
+</div>
