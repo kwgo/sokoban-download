@@ -1,7 +1,7 @@
 <?php
 class db {
     private $user = "kwgoinfo" ;
-    private $password = "pass4KWGO!";
+    private $password = "pwKWGO!";
     private $server = "kwgoinfo.db.4163763.hostedresource.com";
     private $dbase = "kwgoinfo";
 
