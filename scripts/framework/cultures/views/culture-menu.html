@@ -1,9 +1,0 @@
-<div ng-show="model.isReady">
-    <li ng-show="model.supportedCount == 2"><a href="" ng-click="reloadPage()">{{model.cultureManager.nextCulture.Culture.Name}}</a></li>
-    <li ng-show="model.supportedCount > 2" class="dropdown">
-        <a class='dropdown-toggle' data-toggle='dropdown' href=''>{{model.cultureManager.currentCulture.Culture.Name}}&nbsp;<b class='caret'></b></a>
-        <ul class="dropdown-menu">
-            <li ng-repeat="p in model.pages"><a ng-click='model.pageManager.reloadPage(p.Url)' href=''>{{ model.cultureManager.getCultureOrNeutral(p.Culture).Culture.Name  }}</a></li>
-        </ul>
-    </li>
-</div>
