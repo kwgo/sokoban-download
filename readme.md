@@ -35,6 +35,7 @@ The rules are simple. You can only walk or push. You cannot walk through walls o
   <source src="https://github.com/jchipgame/sokoban/blob/master/ic_launcher-web-video.avi" type="video/avi">
   <a href="https://www.youtube.com/watch?v=Rs8VLuUnh9U" target="youttube">https://www.youtube.com/watch?v=Rs8VLuUnh9U</a>
 </video>
+https://www.youtube.com/watch?v=Rs8VLuUnh9U
 
 ### Online Sokoban Game
 <a href="http://www.jchipgame.com" target="website">http://www.jchipgame.com</a>
